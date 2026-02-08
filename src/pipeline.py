@@ -16,7 +16,8 @@ def run_job_finder(
 
     Tavily -> seed companies -> find careers -> extract job-ish text -> LLM analyze -> flatten rows
     """
-    seeds = discover_company_seeds(query, max_results=limit_companies)
+    seeds = discover_company_seeds(query, max_results=limit_companies * 5)
+    seeds = seeds[:limit_companies]
 
     out = []
     for s in seeds:
