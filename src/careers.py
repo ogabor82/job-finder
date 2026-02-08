@@ -51,3 +51,60 @@ def find_careers_url(homepage: str, *, timeout: int = 10) -> Optional[str]:
         return None
 
     return None
+
+
+def extract_careers_text(
+    careers_url: str, *, timeout: int = 10, max_lines: int = 200
+) -> str:
+    resp = requests.get(
+        careers_url, timeout=timeout, headers={"User-Agent": "Mozilla/5.0"}
+    )
+    resp.raise_for_status()
+    soup = BeautifulSoup(resp.text, "html.parser")
+
+    # remove junk
+    for tag in soup(["script", "style", "noscript"]):
+        tag.decompose()
+
+    text = soup.get_text(separator="\n")
+
+    # basic cleanup
+    lines = [line.strip() for line in text.splitlines()]
+    lines = [l for l in lines if len(l) > 30]
+
+    return "\n".join(lines[:max_lines])
+
+
+JOB_HINTS = [
+    "engineer",
+    "developer",
+    "scientist",
+    "researcher",
+    "intern",
+    "backend",
+    "full stack",
+    "full-stack",
+    "machine learning",
+    "ml",
+    "ai",
+    "python",
+    "django",
+    "flask",
+]
+
+
+def extract_jobish_lines(
+    text: str, *, window: int = 4, max_out_lines: int = 200
+) -> str:
+    lines = [l.strip() for l in text.splitlines() if l.strip()]
+    keep = set()
+
+    for i, line in enumerate(lines):
+        low = line.lower()
+        if any(h in low for h in JOB_HINTS):
+            for j in range(max(0, i - window), min(len(lines), i + window + 1)):
+                keep.add(j)
+
+    out = [lines[i] for i in sorted(keep)]
+    out = out[:max_out_lines]
+    return "\n".join(out)
