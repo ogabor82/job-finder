@@ -4,4 +4,5 @@ jupyter
 langchain
 langchain-openai
 pandas
+streamlit
 
