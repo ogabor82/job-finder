@@ -3,4 +3,5 @@ tavily-python
 jupyter
 langchain
 langchain-openai
+pandas
 
