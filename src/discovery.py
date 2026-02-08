@@ -18,6 +18,19 @@ BLOCKED_DOMAINS = [
     "wikipedia.org",
     "substack.com",
     "medium.com",
+    "workatastartup.com",
+    "startup.google.com",
+    "bus.umich.edu",
+    "ycombinator.com",
+    "crunchbase.com",
+    "topstartups.io",
+    "fortune.com",
+    "informationweek.com",
+    "neweconomies.co",
+    "economictimes.indiatimes.com",
+    "siliconangle.com",
+    "calcalistech.com",
+    "thequantuminsider.com",
 ]
 
 BLOCKED_PATH_HINTS = [
@@ -26,6 +39,10 @@ BLOCKED_PATH_HINTS = [
     "/article",
     "/posts/",
     "/journal/",
+    "/alumni/",
+    "/stories/",
+    "/directory",
+    "/job-board",
 ]
 
 
