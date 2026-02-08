@@ -7,7 +7,15 @@ import requests
 from bs4 import BeautifulSoup
 
 
-CAREER_KEYWORDS = ["career", "job", "join", "work with", "hiring"]
+CAREER_KEYWORDS = [
+    "career",
+    "careers",
+    "jobs",
+    "join",
+    "join-us",
+    "work-with-us",
+    "hiring",
+]
 BAD_HINTS = ["contact", "about", "privacy", "terms", "press", "blog"]
 
 
