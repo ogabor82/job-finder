@@ -1,3 +1,6 @@
 python-dotenv
 tavily-python
 jupyter
+langchain
+langchain-openai
+
