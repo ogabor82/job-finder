@@ -1,23 +1,9 @@
 # src/pipeline.py
 from __future__ import annotations
 
-from dataclasses import dataclass
-from typing import Optional, List, Dict, Any
+from typing import List, Dict, Any
 
-
-@dataclass
-class CompanySeed:
-    title: str
-    source_url: str
-    homepage: str
-
-
-@dataclass
-class CompanyRun:
-    seed: CompanySeed
-    careers_url: Optional[str] = None
-    jobish_text: Optional[str] = None
-    llm: Optional[Dict[str, Any]] = None
+from src.discovery import discover_company_seeds
 
 
 def run_job_finder(
@@ -28,6 +14,10 @@ def run_job_finder(
 
     Tavily -> seed companies -> find careers -> extract job-ish text -> LLM analyze -> flatten rows
     """
-    # TODO: implement step-by-step
-    rows: List[Dict[str, Any]] = []
-    return rows
+    seeds = discover_company_seeds(query, max_results=limit_companies)
+
+    # ideiglenes "rows" visszaadás, hogy lásd fut
+    return [
+        {"title": s.title, "source_url": s.source_url, "homepage": s.homepage}
+        for s in seeds
+    ]
